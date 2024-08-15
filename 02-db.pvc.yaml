@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: postgres-pv
+  labels:
+    type: local-pv
+  namespace: banco-galicia
+spec:
+  capacity:
+    storage: 2Gi
+  
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: /mnt/data/postgres
+  claimRef:
+    namespace: banco-galicia
+    name: postgres-pvc
+  
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: postgres-pvc
+  namespace: banco-galicia
+spec:
+  accessModes:
+    - ReadWriteOnce
+  selector:
+    matchLabels:
+      type: local-pv
+  resources:
+    requests:
+      storage: 2Gi
+  

@@ -1,0 +1,22 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: rest-ingress
+  namespace: banco-galicia
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: rest.flux-bancogalicia.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: app-grpc-service
+                port:
+                  number: 8080
+  tls:
+  - hosts:
+      - rest.flux-bancogalicia.com
+    secretName: banco-galicia-certs

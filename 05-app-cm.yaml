@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-cm
+  labels:
+    app: app-testgrpc
+  namespace: banco-galicia
+data:
+  POSTGRES_HOST: "postgres-service.banco-galicia.svc.cluster.local"
+  POSTGRES_USER: fluxdb
+  POSTGRES_PASSWORD: fluxdbpwd

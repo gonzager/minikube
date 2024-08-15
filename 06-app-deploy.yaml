@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-grpc-deploy
+  labels:
+    app: app-grpc-deploy
+  namespace: banco-galicia
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-grpc-pod
+  template:
+    metadata:
+      labels:
+        app: app-grpc-pod
+    spec:
+      containers:
+      - name: app-grpc
+        image: testgrpc:1.0.0
+        envFrom:
+            - configMapRef:
+                name: app-cm
+        ports:
+        - containerPort: 8080
+        - containerPort: 9090 
